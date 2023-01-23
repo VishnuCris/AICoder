@@ -2,6 +2,8 @@
 import {useState} from 'react'
 import {callApi,validateInputs} from '../common/commonApis'
 import DataTable from 'react-data-table-component';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 export const StudentForm = () =>{
 
@@ -43,11 +45,6 @@ export const StudentForm = () =>{
 }
 
 export const StudentsTable = ({studentData,setStudentsList}) =>{
-	console.log(studentData)
-	const HandleEdit = (data,e) =>{
-		console.log(data)
-		console.log(e)
-	}
 	const removeDataByID = (data,id) =>{
 		if(data.id != id)
 			return data
@@ -60,7 +57,6 @@ export const StudentsTable = ({studentData,setStudentsList}) =>{
 		 	if(res.status){
 		 		alert(res.msg)
 		 		location.reload()
-		 		// data.filter(removeDataByID,data.id) 		
 		 	}else{
 		 		alert(res.msg)
 		 	}
@@ -97,7 +93,7 @@ export const StudentsTable = ({studentData,setStudentsList}) =>{
 	        name: 'Actions',
 	        cell: (row) => (
 	        	<>
-		      		<button onClick={(e) => HandleEdit(row,e)}>Edit</button>
+		      		<StudentEditForm row={row}/>
 		      		<button onClick={(e) => HandleDelete(row,e)}>Delete</button>
 	      		</>
 		    ),
@@ -114,5 +110,74 @@ export const StudentsTable = ({studentData,setStudentsList}) =>{
 		</>
 	)
 }
+
+export const StudentEditForm = ({row}) =>{
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+  	setShow(false)
+  };
+  const handleShow = () => {
+  	setShow(false)
+  	setShow(true)
+  };
+  const [inputs,setInputs] = useState(row)
+  const handleOnChange = (e) =>{
+  	let obj = {}
+	obj[`${e.target.name}`] = e.target.value
+	setInputs({...inputs,...obj})
+  }
+  const HandleEdit = () =>{
+  		let validateObj = validateInputs(inputs)
+		if(!validateObj.status){
+			alert(validateObj.msg)
+			return
+		}
+		callApi('/api/update/student',inputs)
+		 .then(res => {
+		 	if(res.status){
+		 		alert(res.msg)
+		 		location.reload()
+		 	}else{
+		 		alert(res.msg)
+		 	}
+		 })
+		 .catch(err => console.log(err))
+	}
+  return (
+    <>
+      	<Button variant="primary" onClick={handleShow}>
+        	Edit
+      	</Button>
+
+      	<Modal show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        >
+        	<Modal.Header >
+          		<Modal.Title>Edit Student</Modal.Title>
+    		</Modal.Header>
+        	<Modal.Body>
+        		<form>
+					<input type="text" name="firstname" value={inputs.firstname} onChange={handleOnChange} placeholder='FirstName ...'/><br/>
+					<input type="text" name="lastname" value={inputs.lastname} onChange={handleOnChange} placeholder='LastName ...'/><br/>
+					<input type="text" name="email" value={inputs.email} onChange={handleOnChange} placeholder='Email ...'/><br/>
+					<input type="text" name="age" value={inputs.age} onChange={handleOnChange} placeholder='Age ...'/><br/>
+					<input type="text" name="bio" value={inputs.bio} onChange={handleOnChange} placeholder='Bio ...'/><br/>
+				</form>
+        	</Modal.Body>
+        	<Modal.Footer>
+          		<Button variant="secondary" onClick={handleClose}>
+            		Close
+          		</Button>
+          		<Button variant="primary" onClick={HandleEdit}>
+            		Save Changes
+          		</Button>
+    		</Modal.Footer>
+      	</Modal>
+    </>
+  );
+}
+
 
 // Students List Table Section //
