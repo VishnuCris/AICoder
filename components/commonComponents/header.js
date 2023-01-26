@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { Menu, Dropdown, Icon } from 'antd';
 import header_css from './header.module.css'
 import {callApi} from '../../common/commonApis'
+import Link from 'next/link'
 
 
 const Header = () =>{
@@ -24,22 +25,26 @@ const Header = () =>{
 	    {!Cookies.get('csrf_access_token') && 
 	    	(	
 			    <Menu.Item key="2">
-			      <a className={header_css.header_link} target="_self" href="/login">login</a>
+			    	<Link className={header_css.header_link} href="/login">login</Link>	
+			      {/*<a className={header_css.header_link} target="_self" href="/login">login</a>*/}
 			    </Menu.Item>
 	    )}
 	    {!Cookies.get('csrf_access_token') && 
 	    	(	
 	    		<Menu.Item key="3">
-	      			<a className={header_css.header_link} target="_self" href="/signup">signup</a>
+	      			{/*<a className={header_css.header_link} target="_self" href="/signup">signup</a>*/}
+	    			<Link className={header_css.header_link} href="/signup">signup</Link>	
     			</Menu.Item>	
 	    )}
 	    <Menu.Item key="4">
-	      <a className={header_css.header_link} target="_self" href="/dashboard">Dashboard</a>
+	      {/*<a className={header_css.header_link} target="_self" href="/dashboard">Dashboard</a>*/}
+	    	<Link className={header_css.header_link} href="/dashboard">Dashboard</Link>	
 	    </Menu.Item>
 	    {Cookies.get('csrf_access_token') && 
 	    	(	
 			    <Menu.Item key="5">
-			      <a className={header_css.header_link} target="_self" onClick={logout}>logout</a>
+			      {/*<a className={header_css.header_link} target="_self" onClick={logout}>logout</a>*/}
+			    	<span className={header_css.header_link} onClick={logout}>logout</span>	
 			    </Menu.Item>
 	    )}
 	  </Menu>

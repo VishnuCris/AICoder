@@ -4,9 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Script from 'next/script'
 import '../styles/global.css'
 import Header from '../components/commonComponents/header.js'
+import { useRouter } from 'next/router'
+import SideNavBar from '../components/dashboard/sideNavBar.js'
 
 
 function MyApp({ Component, pageProps }) {
+	const router = useRouter()
+	console.log(router.asPath)
   	return (
   		<>
 	  		<Head>
@@ -26,6 +30,7 @@ function MyApp({ Component, pageProps }) {
 				  crossorigin />
 	  		</Head>
 	  		<Header />
+	  		{!['login','signup','/'].includes(router.asPath) && <SideNavBar/>}
 			<Component {...pageProps} />
 		</>
 	)
