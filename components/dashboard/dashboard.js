@@ -6,16 +6,16 @@ import SideNavBar from './sideNavBar'
 const DashboardComponent = () =>{
 	const [studentsList,setStudentsList] = useState([])
 	useEffect(() => {
-		// callApi('/api/list/student')
-		//  .then(res => {
-		//  	if(res.hasOwnProperty('msg'))
-		//  		alert(res.msg)
-		//  	setStudentsList(res.data)
-		//  })
-		//  .catch(err => {
-		//  	alert(err)
-		//  	console.log(err)
-		//  })
+		callApi('/api/list/student')
+		 .then(res => {
+		 	if(res.hasOwnProperty('msg'))
+		 		alert(res.msg)
+		 	setStudentsList(res.data)
+		 })
+		 .catch(err => {
+		 	alert(err)
+		 	console.log(err)
+		 })
 	},[])
 
 	return(
