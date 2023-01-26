@@ -1,0 +1,13 @@
+.flex{
+	display: flex;
+}
+.flex-last-left{
+	margin-left: auto;
+}
+.ant-dropdown-menu-item{
+	line-height: 20px !important;
+	padding-inline: 5px !important;
+	height: 20px !important;
+	margin-inline: 4px !important;
+	font-size: 10px !important;
+}

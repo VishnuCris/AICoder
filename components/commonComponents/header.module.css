@@ -1,0 +1,13 @@
+.header_link{
+	text-decoration: none;
+	color: black !important;
+}
+.icon{
+	color: white;
+}
+.header{
+	display: flex;
+	background: black;
+	color: white;
+	padding:2% 1% 2% 1%;
+}

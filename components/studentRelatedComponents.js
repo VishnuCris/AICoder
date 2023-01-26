@@ -94,7 +94,7 @@ export const StudentsTable = ({studentData,setStudentsList}) =>{
 	        cell: (row) => (
 	        	<>
 		      		<StudentEditForm row={row}/>
-		      		<button onClick={(e) => HandleDelete(row,e)}>Delete</button>
+		      		<Button variant="danger" onClick={(e) => HandleDelete(row,e)}>Delete</Button>
 	      		</>
 		    ),
 	    },

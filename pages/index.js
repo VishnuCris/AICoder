@@ -1,10 +1,10 @@
 
-import DashboardComponent from '../components/dashboard'
+import HomeComponent from '../components/Home/home'
 
-const DashBoardPage = () =>{
+const HomePage = () =>{
 	return(
-		<DashboardComponent />
+		<HomeComponent />
 	)
 }
 
-export default DashBoardPage
+export default HomePage
