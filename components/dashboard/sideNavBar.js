@@ -1,11 +1,14 @@
  
 import dashboard_css from './dashboard.module.css'
+import header_css from '../../components/commonComponents/header.module.css'
 import {useState} from 'react';
 import Link from 'next/link'
+import { Select } from 'antd';
 
-const SideNavBar = () =>{
+const SideNavBar = ({children}) =>{
 
-  const [width,setWidth] = useState(0)
+  const {Option,OptGroup} = Select
+  const [width,setWidth] = useState(250)
   const closeNav = () =>{
     setWidth(0)
   }
@@ -14,24 +17,26 @@ const SideNavBar = () =>{
     setWidth(250)
   }
 
+  const handleChange = (val) =>{
+    console.log(val)
+  }
+
   return(
     <>
-    <div>
-      <div style={{'width':width}} className={dashboard_css.sidenav}>  
-        <div className={`flex ${dashboard_css.dashBoardHeadDiv}`}>
+    <div className={dashboard_css.parentDiv}>
+      <div className={dashboard_css.sidenav}>  
+        <div className={dashboard_css.navOptions}>
           <div className={dashboard_css.dashBoardHead}>Dashboard</div>
-          <div className="flex-last-left"><a href="#" className={`${dashboard_css.closebtn}`} onClick={closeNav}>&times;</a></div>
+          <div><Link href="/dashboard">Home</Link></div>
+          <div><Link href="/python/Intro">Python</Link></div>
+          <div><Link href="/javascript/Intro">JS</Link></div>
+          <div><Link href="/nginx/Intro">Nginx</Link></div>
+          <div><Link href="/git/Intro">GIT</Link></div> 
         </div>
-        <Link className={dashboard_css.dashboardLink} href="/python">Python</Link> 
-        <Link className={dashboard_css.dashboardLink} href="/javascript">JS</Link> 
-        <Link className={dashboard_css.dashboardLink} href="/nginx">Nginx</Link> 
-        <Link className={dashboard_css.dashboardLink} href="/git">GIT</Link> 
-{/*        <a href="/python">Python</a>
-        <a href="/javascript">JS</a>
-        <a href="/nginx">Nginx</a>
-        <a href="/git">GIT</a>*/}
       </div>
-      <span className={dashboard_css.navOpenBtn} onClick={openNav}>&#9776;</span>
+      <div className={`flex-last-left ${dashboard_css.navChildComponent}`}>
+          {children}
+      </div>
     </div>
     </>
   )

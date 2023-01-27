@@ -1,7 +1,9 @@
 
 const PythonPage = () =>{
 	return(
-		<>python</>
+		<>
+			python
+		</>
 	)
 }
 

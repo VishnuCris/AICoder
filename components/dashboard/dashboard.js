@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react'
+import {useState,useEffect,useRef} from 'react'
 import {callApi} from '../../common/commonApis'
 import {StudentsTable} from '../students/studentRelatedComponents'
 import SideNavBar from './sideNavBar'
@@ -17,12 +17,9 @@ const DashboardComponent = () =>{
 		 	console.log(err)
 		 })
 	},[])
-
 	return(
 		<>
-			<div style={{'padding':'10px'}}>
-				<StudentsTable studentData={studentsList} setStudentsList={setStudentsList}/>
-			</div>
+			<StudentsTable studentData={studentsList} setStudentsList={setStudentsList}/>
 			{/*<span style={{fontSize:'30px',cursor:'pointer'}} onClick={openNav}>&#9776;</span>*/}
 		</>
 	)

@@ -7,7 +7,7 @@ import {callApi} from '../../common/commonApis'
 import Link from 'next/link'
 
 
-const Header = () =>{
+const Header = ({children}) =>{
 	const logout = () =>{
 		callApi('/api/logout',{token:Cookies.get('csrf')})
 		 .then(res => {
@@ -52,14 +52,19 @@ const Header = () =>{
 
 	return(
 		<>
-			<div className={header_css.header}>
-				<div>Python-Next-Nginx</div>
-				<div className="flex-last-left">
-					<Dropdown overlay={menu}>
-						<a className="ant-dropdown-link" href="#">
-							<Avatar className={header_css.icon} size="small" icon={<UserOutlined />} />
-						</a>
-						</Dropdown>
+			<div>
+				<div className={header_css.header}>
+					<div>Python-Next-Nginx</div>
+					<div className="flex-last-left">
+						<Dropdown overlay={menu}>
+							<a className="ant-dropdown-link" href="#">
+								<Avatar className={header_css.icon} size="small" icon={<UserOutlined />} />
+							</a>
+							</Dropdown>
+					</div>
+				</div>
+				<div>	
+					{children}
 				</div>
 			</div>
 		</>

@@ -1,7 +1,7 @@
 
 const GitPage = () =>{
 	return(
-		<>GIT</>
+		<>Git</>
 	)
 }
 

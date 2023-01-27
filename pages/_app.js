@@ -29,9 +29,9 @@ function MyApp({ Component, pageProps }) {
 				  src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
 				  crossorigin />
 	  		</Head>
-	  		<Header />
-	  		{!['login','signup','/'].includes(router.asPath) && <SideNavBar/>}
-			<Component {...pageProps} />
+	  		<Header>
+	  			{!['/login','/signup','/'].includes(router.asPath) ? <SideNavBar> <Component {...pageProps} /> </SideNavBar> : <Component {...pageProps} />}	
+  			</Header>
 		</>
 	)
 }

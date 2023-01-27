@@ -63,7 +63,7 @@ export const StudentsTable = ({studentData,setStudentsList}) =>{
 	return (
 		<>
 			<div className="flex">
-				<div>Students List</div>
+				<h4>Students List</h4>
 				<div className="flex-last-left"><StudentAddForm /></div>
 			</div>
 	      <DataTable
