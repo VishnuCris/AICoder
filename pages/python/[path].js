@@ -1,8 +1,11 @@
+import PythonComponent from '../../components/dashboard/python/intro'
 
-const PythonPage = () =>{
+const PythonPage = ({paths}) =>{
+	console.log(paths)
+	console.log('path')
 	return(
 		<>
-			python
+			<PythonComponent path={paths}/>
 		</>
 	)
 }

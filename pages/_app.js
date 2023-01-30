@@ -10,7 +10,6 @@ import SideNavBar from '../components/dashboard/sideNavBar.js'
 
 function MyApp({ Component, pageProps }) {
 	const router = useRouter()
-	console.log(router.asPath)
   	return (
   		<>
 	  		<Head>
@@ -30,7 +29,7 @@ function MyApp({ Component, pageProps }) {
 				  crossorigin />
 	  		</Head>
 	  		<Header>
-	  			{!['/login','/signup','/'].includes(router.asPath) ? <SideNavBar> <Component {...pageProps} /> </SideNavBar> : <Component {...pageProps} />}	
+	  			{!['/login','/signup','/'].includes(router.asPath) ? <SideNavBar> <Component {...pageProps} paths={router.asPath} /> </SideNavBar> : <Component {...pageProps} paths={router.asPath}/>}	
   			</Header>
 		</>
 	)
