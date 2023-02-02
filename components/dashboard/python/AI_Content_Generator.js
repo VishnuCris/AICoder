@@ -44,9 +44,15 @@ const AIContentGenerator = () =>{
 			externalApiCall('https://api.openai.com/v1/completions',gptData)
 			.then(res => {
 				try{
-					let text = res.choices[0].text
-					setLoader('')
-					setContentResp(text)
+					if(res.error){
+						setLoader('')
+						console.log(res)
+						alert(res.error.message)
+					}else{
+						let text = res.choices[0].text
+						setLoader('')
+						setContentResp(text)
+					}
 				}catch(err){
 					setLoader('')
 					console.log(err)

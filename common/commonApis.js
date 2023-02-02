@@ -37,7 +37,9 @@ export const callApi = (url,data) =>{
 
 export const externalApiCall = (url,data) =>{
 	let headersPOST = externalPostOptions(data)
-	headersPOST['headers'] = {...headersPOST['headers'],...{"Content-Type":"application/json","Authorization":"Bearer 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"}}
+	// headersPOST['headers'] = {...headersPOST['headers'],...{"Content-Type":"application/json","Authorization":"Bearer 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"}}
+	// console.log(process.env.NEXT_PUBLIC_OPENAI_API_KEY)
+	headersPOST['headers'] = {...headersPOST['headers'],...{"Content-Type":"application/json","Authorization":"Bearer "+process.env.NEXT_PUBLIC_API_KEY}}
 	return fetch(url,headersPOST)
 		.then(res => {
 			return res.json()
