@@ -12,6 +12,17 @@ const postOptions = (data={}) =>{
 	}
 }
 
+const externalPostOptions = (data={}) =>{
+	return{
+		method:'POST',
+		mode:'cors',
+		headers:{
+			'Content-Type':'application/json',
+		},
+		body:JSON.stringify(data),
+	}
+}
+
 export const callApi = (url,data) =>{
 	let headersPOST = postOptions(data)
 	if(Cookies.get('csrf_access_token')){
@@ -21,6 +32,18 @@ export const callApi = (url,data) =>{
 		.then(res => res.json())
 		.catch(err => {
 			return {msg:err,status:false}
+		})
+}
+
+export const externalApiCall = (url,data) =>{
+	let headersPOST = externalPostOptions(data)
+	headersPOST['headers'] = {...headersPOST['headers'],...{"Content-Type":"application/json","Authorization":"Bearer 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"}}
+	return fetch(url,headersPOST)
+		.then(res => {
+			return res.json()
+		})
+		.catch(err => {
+			return {message:err,status:false}
 		})
 }
 

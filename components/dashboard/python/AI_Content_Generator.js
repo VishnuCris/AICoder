@@ -1,11 +1,17 @@
 
 import Link from 'next/link'
 import {useState,useEffect} from 'react'
-import {callApi,validateInputs} from '../../../common/commonApis'
+import {callApi,validateInputs,externalApiCall} from '../../../common/commonApis'
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 
 const AIContentGenerator = () =>{
 	const [content,setContent] = useState('')
 	const [contentResp,setContentResp] = useState('')
+	const [loader,setLoader] = useState('')
+
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+	const loaderIcon =  <Spin indicator={antIcon} />;
 
 	const handleOnChange = (e) =>{
 		setContent(e.target.value)
@@ -14,18 +20,37 @@ const AIContentGenerator = () =>{
 		setContent("")
 		setContentResp("")
 	}
+	const sModel = "text-davinci-003";
+    const iMaxTokens = 2048;
+    const sUserId = "1";
+    const dTemperature = 0.5;    
+
+    const gptData = {
+        model: sModel,
+        // prompt: `Give some description about ${content}`,
+        prompt: content,
+        max_tokens: iMaxTokens,
+        user: sUserId,
+        temperature:  dTemperature,
+        frequency_penalty:1.0,
+    }
 	const generate_content = () =>{
 		if(!content.trim()){
 			alert('Content should not be empty')
 			return;
 		}else{
-			callApi('/api/AI_Content/create',{'content':content})
+			setLoader(loaderIcon)
+			setContentResp('')
+			externalApiCall('https://api.openai.com/v1/completions',gptData)
 			.then(res => {
-				if(res.status){
-					setContentResp(res.content)
-				}else{
+				try{
+					let text = res.choices[0].text
+					setLoader('')
+					setContentResp(text)
+				}catch(err){
+					setLoader('')
+					console.log(err)
 					console.log(res)
-					alert(res.message)
 				}
 			})
 			.catch(err => console.log(err))
@@ -41,6 +66,7 @@ const AIContentGenerator = () =>{
 				<input type="button" name="Generate" value="Generate" onClick={generate_content} />
 			</form>
 			<div>
+				{loader}
 				{contentResp}
 			</div>
 		</>
