@@ -27,6 +27,8 @@ function MyApp({ Component, pageProps }) {
 				<Script
 				  src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
 				  crossorigin />
+			  	<link rel="shortcut icon" href="/static/download.png" />
+				<title>Python-Next-Nginx</title>
 	  		</Head>
 	  		<Header>
 	  			{!['/login','/signup','/'].includes(router.asPath) ? <SideNavBar> <Component {...pageProps} paths={router.asPath} /> </SideNavBar> : <Component {...pageProps} paths={router.asPath}/>}	
